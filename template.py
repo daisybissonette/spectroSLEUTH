@@ -7,7 +7,12 @@ from astropy.io import fits
 
 class emission_lines(): 
     
-    def __init__(self, filepath, z, snr):          
+    def __init__(self, filepath, z, snr):
+        '''
+        filepath (string): filepath to the spectrum data (fits format)
+        z (float): redshift of the galaxy 
+        snr (float): signal-to-noise ratio desired for emission-line detection threshold
+        '''          
         hdul = fits.open(filepath)
         data = hdul[1].data
         self.lamb = 10**data['loglam']
@@ -15,9 +20,14 @@ class emission_lines():
         self.redshift = z
         self.snr = snr
 
-    def func1(self, ): 
+    def line_detection(self): 
         """
-        inse
+        This function will detect peaks by....
+        INPUTS:
+        variables defined above
+        OUTPUTS: 
+        1. Pandas dataframe containing the observed and emitted wavelengths of detected emission lines.
+        2. Figure showing the spectrum with detected emission-lines indicated by a vertical line.
         """
         #redshift correct the wavelengths to define consistant noise range
         corrected_lam = self.lamb/(1+self.redshift)
@@ -32,9 +42,9 @@ class emission_lines():
 
         #line detection 
 
-        return Table
+        return pdtable
     
-    def func2(self, ): 
+    def line_identification(self, ): 
         #line identification
 
         return Table
