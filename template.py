@@ -9,8 +9,10 @@ from astropy.io import fits
 class emission_lines(): 
     
     def __init__(self, filepath, z, snr):          
-        co = coords.SkyCoord(filepath) #position format example: '0h8m05.63s +14d50m23.3s'
-        self.spectrum = SDSS.get_spectra(coordinates=co) #import sdss data
+        hdul = fits.open(filepath)
+        data = hdul[1].data
+        self.lamb = 10**data['loglam']
+        self.flux = data['flux']
         self.redshift = z
         self.snr = snr
 
