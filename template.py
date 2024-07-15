@@ -15,8 +15,9 @@ class emission_lines():
         '''          
         hdul = fits.open(filepath)
         data = hdul[1].data
-        self.lamb = 10**data['loglam']
-        self.flux = data['flux']
+        data.byteswap().newbyteorder()
+        self.lam = np.array(10**data['loglam'])
+        self.flux = np.array(data['flux'])
         self.redshift = z
         self.snr = snr
 
@@ -30,9 +31,9 @@ class emission_lines():
         2. Figure showing the spectrum with detected emission-lines indicated by a vertical line.
         """
         #redshift correct the wavelengths to define consistant noise range
-        corrected_lam = self.lamb/(1+self.redshift)
+        corrected_lam = self.lam/(1+self.redshift)
         # putting the spectrum data into a pandas dataframe
-        df = {'obs lam': lam, 'emit lam': corrected_lam, 'flux': data['flux']}
+        df = {'obs lam': self.lam, 'emit lam': corrected_lam, 'flux': self.flux}
         pdtable = pd.DataFrame(df)
 
         #defining a noise range and getting the noise value
@@ -42,9 +43,21 @@ class emission_lines():
 
         #line detection 
 
-        return pdtable
-    
+        #plotting the spectrum with the lines detected
+        fig = plt.figure()
+        plt.plot(pdtable["emit lam"], pdtable["flux"])
+        plt.xlabel("wavelength in Angstrom")
+        plt.ylabel("flux")
+        return pdtable, fig
+    '''
     def line_identification(self, ): 
         #line identification
 
         return Table
+        '''
+    
+
+el = emission_lines('spec-0285-51930-0309.fits', 0.06456, 3)
+table, figure = el.line_detection()
+#print(table)
+plt.show()
