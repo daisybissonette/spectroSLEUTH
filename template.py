@@ -3,7 +3,6 @@ import scipy
 import matplotlib.pyplot as plt 
 import pandas as pd 
 from astropy import coordinates as coords
-from astroquery.sdss import SDSS
 from astropy.io import fits
 
 class emission_lines(): 
@@ -20,6 +19,17 @@ class emission_lines():
         """
         inse
         """
+        #redshift correct the wavelengths to define consistant noise range
+        corrected_lam = self.lamb/(1+self.redshift)
+        # putting the spectrum data into a pandas dataframe
+        df = {'obs lam': lam, 'emit lam': corrected_lam, 'flux': data['flux']}
+        pdtable = pd.DataFrame(df)
+
+        #defining a noise range and getting the noise value
+        noise_range = pdtable.loc[(pdtable['emit lam'] > 7000) & (pdtable['emit lam'] < 8000), 'emit lam']
+        flux_noise = pdtable.loc[noise_range.index[0]: noise_range.index[-1], 'flux']
+        flux_noise_std = np.std(flux_noise)
+
         #line detection 
 
         return Table
