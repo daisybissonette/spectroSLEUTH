@@ -1,2 +1,4 @@
 # spectroSLEUTH
-2024 CodeAstro Group #2 Project
+SpectroSLEUTH: SpectroScopy Line Emission Utility and Tracking Helper
+
+A 2024 CodeAstro Workshop Project (Group #2)
