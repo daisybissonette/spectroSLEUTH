@@ -78,8 +78,31 @@ class emission_lines():
             #if there is a value in this array that is less than a desired tolerance it's probably a match. so its saved
             if min(hold) < 5:
                 matches.append([lam, lam-min(hold), defined_names[i]])
+        
+        matches_df = pd.DataFrame(matches,columns=['Atomic Wavelength', 'Found Peak', 'Ion Match'])
+      
+        #plotting code
+        fig = plt.figure()
+        
+        plt.plot(self.lam/(1+self.redshift), self.flux)
+        for i, wl in enumerate(np.array(matches_df['Found Peak'])):
+            plt.vlines(wl, 0, np.max(self.flux), color = 'gray', ls = '--')
+        plt.xlabel(r'Wavelength ($\AA$)')
+        plt.ylabel('Flux')
+        plt.title('')
 
-        return matches
+        # plt.text(np.array(matches_df['Atomic Wavelength'])[0], np.array(results_table['flux'])[0], 
+        #          np.array(matches_df['Ion Match'])[0])
+
+        print(np.array(matches_df['Ion Match'])[0])
+
+        # for i, name in enumerate(np.array(matches_df['Ion Match'])):
+        #     plt.text(np.array(matches_df['Atomic Wavelength'])[i], np.array(results_table['flux'])[i], name)
+        
+        plt.show()
+
+
+        return matches_df, fig
 el = emission_lines('spec-0285-51930-0309.fits', 0.06456) #0.06456
 el_table, figure = el.line_detection()
 test = el.line_identification(el_table)
