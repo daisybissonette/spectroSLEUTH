@@ -36,18 +36,24 @@ class emission_lines():
         pdtable = pd.DataFrame(df)
         new_table = Table.from_pandas(pdtable)
         #defining a noise range and getting the noise value
-        noise_range = new_table.loc[(new_table['emit lam'] > 7000) & (new_table['emit lam'] < 8000), 'emit lam']
-        flux_noise = new_table.loc[noise_range.index[0]: noise_range.index[-1], 'flux']
-        flux_noise_std = np.std(flux_noise)
-
-        #line detection 
+        #noise_range = new_table.loc[(new_table['emit lam'] > 7000) & (new_table['emit lam'] < 8000), 'emit lam']
+        #flux_noise = new_table.loc[noise_range.index[0]: noise_range.index[-1], 'flux']
+        #flux_noise_std = np.std(flux_noise)
 
         #plotting the spectrum with the lines detected
+        peaks, props = find_peaks(new_table["flux"], prominence=23) #mess with arguments to get better peak finding, normalize spectra first
+        #new_table['peak_lam'] = new_table["emit lam"][peaks]
+        results = [new_table["obs lam"][peaks], new_table["emit lam"][peaks], new_table["flux"][peaks]]
+        results_table = Table(results)
+
         fig = plt.figure()
         plt.plot(new_table["emit lam"], new_table["flux"])
-        plt.xlabel("wavelength in Angstrom")
-        plt.ylabel("flux")
-        return new_table, fig
+        plt.plot(new_table["emit lam"][peaks], new_table["flux"][peaks], 'x')
+        plt.xlabel('Wavelength')
+        plt.ylabel('Flux')
+        plt.show()
+
+        return results_table, fig
     '''
     def line_identification(self, ): 
         #line identification
@@ -57,5 +63,5 @@ class emission_lines():
 
 el = emission_lines('spec-0285-51930-0309.fits', 0.06456, 3)
 el_table, figure = el.line_detection()
-#print(table)
+print(el_table)
 plt.show()
