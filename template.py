@@ -1,8 +1,6 @@
-import numpy as np 
-import scipy 
+import numpy as np
 import matplotlib.pyplot as plt 
-import pandas as pd 
-from astropy import coordinates as coords
+import pandas as pd
 from astropy.io import fits, ascii
 from scipy.signal import find_peaks
 from astropy.table import Table
@@ -65,12 +63,23 @@ class emission_lines():
         #plt.show()
             
         return results_table, fig
-    '''
-    def line_identification(self, ): 
-        #line identification
+
+    def line_identification(self, results_table): 
+        defined_lines = pd.read_csv('optical_lines.csv')
+        defined_wavelenth = defined_lines['']
+        for i, lam in enumerate(vacuum):
+            #each vacuum wavelength gets redshifted before checking for matches
+            redshifted_wl = lam * (1 + z)
+            
+            #the difference between the vacuum wavelength and the peaks gets saved
+            hold = np.abs(redshifted_wl - peak_wavelengths2)
+            
+            #if there is a value in this array that is less than a desired tolerance it's probably a match. so its saved
+            if min(hold) < 0.05:
+                check.append([lam, redshifted_wl-min(hold),z])
 
         return Table
-        '''
+
 
 filepath = input("Enter FITS filepath: ")
 z = input("Enter redshift: ")
