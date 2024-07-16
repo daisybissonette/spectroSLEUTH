@@ -15,7 +15,8 @@ class emission_lines():
         z (float): redshift of the galaxy. 
         prominence (float, optional): required prominence of peaks for emission-line detection threshold. default is 20. 
         savefig (boolean, optional): set to True to save figure. default is False.
-        '''  
+        ''' 
+
         if z < 0:
             raise Exception("Redshift cannot be negative. Try again with a positive value.")
         
@@ -33,7 +34,7 @@ class emission_lines():
         self.redshift = z
         self.prominence = prominence 
 
-    def line_detection(self, savefig=False, savetable=False): 
+    def line_detection(self): #, savefig=False, savetable=False
         """
         This function will detect peaks by....
         INPUTS:
@@ -60,14 +61,8 @@ class emission_lines():
         plt.xlabel(r'Wavelength ($\AA$)')
         plt.ylabel('Flux')
         plt.title('')
-        
-        if savefig == True:
-            plt.savefig("emission_lines_detected.png", bbox_inches ="tight", pad_inches = 0.05, dpi=300)
-        
-        if savetable == True:
-            ascii.write(results_table, 'emission_lines_table.dat', overwrite=True)
 
-        plt.show()
+        #plt.show()
             
         return results_table, fig
     '''
@@ -77,7 +72,32 @@ class emission_lines():
         return Table
         '''
 
-el = emission_lines('/Users/leafeuillet/Desktop/heart_rate-2024-07-05.json', 0.2) #0.06456
-el_table, figure = el.line_detection(savefig=False, savetable=True)
+filepath = input("Enter FITS filepath: ")
+z = input("Enter redshift: ")
+
+prom_check = input("Do you want to set prominance (Y or N)? ")
+if prom_check in ['Y', 'y', 'Yes', 'yes']: # make not case sensitive.
+    prom_userset = input("What value for prominence (Must be > 0)? ")
+    el = emission_lines(filepath, float(z), prominence=float(prom_userset))
+elif prom_check in ['N', 'n', 'No', 'no']:
+    el = emission_lines(filepath, float(z))
+else:
+    raise Exception("Must be Y or N. Try again.")
+
+#el = emission_lines('spec-0285-51930-0309.fits', 0.2) #0.06456
+el_table, figure = el.line_detection() #
+
+savefig = input("Do you want to save the figure (Y or N)? ")
+
+if savefig in ['Y', 'y', 'Yes', 'yes']:
+    plt.savefig("emission_lines_detected.png", bbox_inches ="tight", pad_inches = 0.05, dpi=300)
+
+savetable = input("Do you want to save the table (Y or N)? ")
+
+if savetable in ['Y', 'y', 'Yes', 'yes']:
+    ascii.write(el_table, 'emission_lines_table.dat', overwrite=True)
+
 print('Here is a table of your emission lines!')
 print(el_table)
+
+plt.show()
