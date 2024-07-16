@@ -55,7 +55,6 @@ class emission_lines():
 
         return Table
         '''
-    
 
 el = emission_lines('spec-0285-51930-0309.fits', 0.06456, 3)
 table, figure = el.line_detection()
