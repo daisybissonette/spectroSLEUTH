@@ -65,48 +65,52 @@ class emission_lines():
         return results_table, fig
 
     def line_identification(self, results_table): 
-        defined_lines = pd.read_csv('optical_lines.csv')
-        defined_wavelenth = defined_lines['']
-        for i, lam in enumerate(vacuum):
-            #each vacuum wavelength gets redshifted before checking for matches
-            redshifted_wl = lam * (1 + z)
+        defined_lines = pd.read_csv('defined_optical_lines.csv')
+        defined_wavelength = np.array(defined_lines['wavelength'])
+        defined_names = defined_lines['ion']
+        matches = []
+
+        for i, lam in enumerate(defined_wavelength):
             
             #the difference between the vacuum wavelength and the peaks gets saved
-            hold = np.abs(redshifted_wl - peak_wavelengths2)
+            hold = np.abs(lam - np.array(results_table['emit lam']))
             
             #if there is a value in this array that is less than a desired tolerance it's probably a match. so its saved
-            if min(hold) < 0.05:
-                check.append([lam, redshifted_wl-min(hold),z])
+            if min(hold) < 5:
+                matches.append([lam, lam-min(hold), defined_names[i]])
 
-        return Table
+        return matches
+el = emission_lines('spec-0285-51930-0309.fits', 0.06456) #0.06456
+el_table, figure = el.line_detection()
+test = el.line_identification(el_table)
+print(test)
 
+# filepath = input("Enter FITS filepath: ")
+# z = input("Enter redshift: ")
 
-filepath = input("Enter FITS filepath: ")
-z = input("Enter redshift: ")
+# prom_check = input("Do you want to set prominance (Y or N)? ")
+# if prom_check in ['Y', 'y', 'Yes', 'yes']: # make not case sensitive.
+#     prom_userset = input("What value for prominence (Must be > 0)? ")
+#     el = emission_lines(filepath, float(z), prominence=float(prom_userset))
+# elif prom_check in ['N', 'n', 'No', 'no']:
+#     el = emission_lines(filepath, float(z))
+# else:
+#     raise Exception("Must be Y or N. Try again.")
 
-prom_check = input("Do you want to set prominance (Y or N)? ")
-if prom_check in ['Y', 'y', 'Yes', 'yes']: # make not case sensitive.
-    prom_userset = input("What value for prominence (Must be > 0)? ")
-    el = emission_lines(filepath, float(z), prominence=float(prom_userset))
-elif prom_check in ['N', 'n', 'No', 'no']:
-    el = emission_lines(filepath, float(z))
-else:
-    raise Exception("Must be Y or N. Try again.")
+# #el = emission_lines('spec-0285-51930-0309.fits', 0.2) #0.06456
+# el_table, figure = el.line_detection() #
 
-#el = emission_lines('spec-0285-51930-0309.fits', 0.2) #0.06456
-el_table, figure = el.line_detection() #
+# savefig = input("Do you want to save the figure (Y or N)? ")
 
-savefig = input("Do you want to save the figure (Y or N)? ")
+# if savefig in ['Y', 'y', 'Yes', 'yes']:
+#     plt.savefig("emission_lines_detected.png", bbox_inches ="tight", pad_inches = 0.05, dpi=300)
 
-if savefig in ['Y', 'y', 'Yes', 'yes']:
-    plt.savefig("emission_lines_detected.png", bbox_inches ="tight", pad_inches = 0.05, dpi=300)
+# savetable = input("Do you want to save the table (Y or N)? ")
 
-savetable = input("Do you want to save the table (Y or N)? ")
+# if savetable in ['Y', 'y', 'Yes', 'yes']:
+#     ascii.write(el_table, 'emission_lines_table.dat', overwrite=True)
 
-if savetable in ['Y', 'y', 'Yes', 'yes']:
-    ascii.write(el_table, 'emission_lines_table.dat', overwrite=True)
+# print('Here is a table of your emission lines!')
+# print(el_table)
 
-print('Here is a table of your emission lines!')
-print(el_table)
-
-plt.show()
+# plt.show()
