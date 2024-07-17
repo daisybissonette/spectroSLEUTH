@@ -34,12 +34,16 @@ class emission_lines():
 
     def line_detection(self): #, savefig=False, savetable=False
         """
-        This function will detect peaks by....
-        INPUTS:
-        variables defined in class declaration
-        OUTPUTS: 
-        results_table (astropy table): Astropy table containing the observed and emitted wavelengths of detected emission lines.
-        fig (figure): Figure showing the spectrum with detected emission-lines indicated by a vertical line.
+        Line Detection 
+
+        This function will detect peaks by using the scipy find_peak function.
+
+        Args:
+            variables defined in class declaration
+        
+        Returns: 
+            results_table (astropy table): Table containing the observed and emitted wavelengths of detected emission lines.
+            fig (figure): Figure showing the spectrum with detected emission-lines indicated by a vertical line.
         """
         #redshift correct the wavelengths to define consistant noise range
         corrected_lam = self.lam/(1+self.redshift)
