@@ -176,7 +176,4 @@ class emission_lines():
 
         return matches_df, fig
     
-el = emission_lines('/Users/daisybissonette/codeastro/spectroSLEUTH/tests/test_spectrum_1.fits', 0.0646, prominence=20)
-# #el.line_detection()
-el.line_identification()
 
