@@ -7,10 +7,10 @@ Welcome to spectroSLEUTH's documentation!
 =========================================
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
    :caption: Contents:
-
-   spectroSLEUTH.rst
+   
+   sleuth.rst
 
 Indices and tables
 ==================
