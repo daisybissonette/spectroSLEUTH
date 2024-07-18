@@ -5,7 +5,7 @@
 
 A 2024 CodeAstro Workshop Project (Group #2)
 
-add badges here 
+[![License: MIT](https://cdn.prod.website-files.com/5e0f1144930a8bc8aace526c/65dd9eb5aaca434fac4f1c34_License-MIT-blue.svg)](/LICENSE) [![Python 3.10](https://img.shields.io/badge/python-3.10-blue.svg)](https://www.python.org/downloads/release/python-360/) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.12760739.svg)](https://doi.org/10.5281/zenodo.12760739)
 
 This package is desined to detect emission-lines in user input spectra, as well as making best guesses as to the nature of these emission-lines. 
 It is currently built for optical spectra (SDSS specifically).
