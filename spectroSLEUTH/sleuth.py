@@ -9,12 +9,11 @@ from astropy.table import Table
 class emission_lines(): 
     
     def __init__(self, filepath, z, prominence=20):
-        '''
+        """
         filepath (string): filepath to the spectrum data (fits format)
         z (float): redshift of the galaxy. 
-        prominence (float, optional): required prominence of peaks for emission-line detection threshold. default is 20. 
-        savefig (boolean, optional): set to True to save figure. default is False.
-        ''' 
+        prominence (float, optional): required prominence of peaks for emission-line detection threshold. default is 20.
+        """
 
         if z < 0:
             raise Exception("Redshift cannot be negative. Try again with a positive value.")
@@ -70,7 +69,7 @@ class emission_lines():
         return results_table, fig
 
     def line_identification(self): 
-        '''
+        """
         Line Identification 
 
         This function take in identified peaks (redshifted back to rest) and compares them to a table of atomic wavelengths to identify ion
@@ -81,7 +80,7 @@ class emission_lines():
         Returns:
             results_table (astropy table): Table containing the observed and emitted wavelengths of detected emission lines, as well as the best guess for the corresponding ions responsible for the line.
             fig (figure): Figure showing the spectrum with detected emission-lines indicated by a vertical line and labeled ion.
-        '''
+        """
 
         #calls first function and saves output to use identified peaks in this function
         results_table, fig = self.line_detection()
