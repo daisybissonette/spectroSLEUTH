@@ -1,5 +1,6 @@
 
-![spectroSLEUTH_final_logo](https://github.com/user-attachments/assets/5f85b557-20f4-4f69-953b-53506672cf76)
+![spectroSLEUTH_logo_final](https://github.com/user-attachments/assets/043fbead-d89d-4661-bcea-733a9bfd7cc5)
+
 
 
 A 2024 CodeAstro Workshop Project (Group #2)
