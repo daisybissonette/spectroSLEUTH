@@ -1,4 +1,5 @@
-![spectroSLEUTH_logo](https://github.com/user-attachments/assets/ca85e421-0096-4487-9726-7a8e936ae99f)
+
+![spectroSLEUTH_purple_logo](https://github.com/user-attachments/assets/2b5e7939-6a6c-4d91-b90d-7fc4cf19fa38)
 
 SpectroSLEUTH: SpectroScopy Line Emission Utility and Tracking Helper
 
@@ -15,8 +16,8 @@ Start by installing the package and running the following:
 from spectroSLEUTH import sleuth
 
 el = sleuth.emission_lines('path/test_spectrum.fits', redshift)
-el.line_detection()
-el.line_identification()
+results_table_detection, fig_detection = el.line_detection()
+results_table_identification, fig_identification = el.line_identification()
 ```
 
 For additional features, you can set the threshold for detecting lines by setting a value for prominence (as defined in the [scipy.find_peaks](https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.find_peaks.html) function). The default prominence is set to 23. Lower values for prominence will find more peaks, while a higher value will find only the most pronounced emission-lines.
