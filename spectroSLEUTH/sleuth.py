@@ -81,7 +81,7 @@ class emission_lines():
         '''
 
         #calls first function and saves output to use identified peaks in this function
-        results_table, fig = emission_lines.line_detection()
+        results_table, fig = self.line_detection()
 
         defined_lines = pd.read_csv('spectroSLEUTH/spectroSLEUTH/line_data/defined_optical_lines.csv')
         defined_wavelength = np.array(defined_lines['wavelength'])
