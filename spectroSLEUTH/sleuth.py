@@ -68,8 +68,22 @@ class emission_lines():
             
         return results_table, fig
 
-    def line_identification(self, results_table): 
-        defined_lines = pd.read_csv('defined_optical_lines.csv')
+    def line_identification(self): 
+        '''
+        This function take in identified peaks (redshifted back to rest) and compares them to a table of atomic wavelengths to identify ion
+
+        Args:
+            variables defined in class declaration
+        
+        Returns:
+            results_table (astropy table): Table containing the observed and emitted wavelengths of detected emission lines.
+            fig (figure): Figure showing the spectrum with detected emission-lines indicated by a vertical line and labeled ion
+        '''
+
+        #calls first function and saves output to use identified peaks in this function
+        results_table, fig = emission_lines.line_detection()
+
+        defined_lines = pd.read_csv('spectroSLEUTH/spectroSLEUTH/line_data/defined_optical_lines.csv')
         defined_wavelength = np.array(defined_lines['wavelength'])
         defined_names = defined_lines['ion']
         matches = []
@@ -107,37 +121,4 @@ class emission_lines():
 
 
         return matches_df, fig
-el = emission_lines('spec-0285-51930-0309.fits', 0.06456) #0.06456
-el_table, figure = el.line_detection()
-test = el.line_identification(el_table)
-print(test)
 
-# filepath = input("Enter FITS filepath: ")
-# z = input("Enter redshift: ")
-
-# prom_check = input("Do you want to set prominance (Y or N)? ")
-# if prom_check in ['Y', 'y', 'Yes', 'yes']: # make not case sensitive.
-#     prom_userset = input("What value for prominence (Must be > 0)? ")
-#     el = emission_lines(filepath, float(z), prominence=float(prom_userset))
-# elif prom_check in ['N', 'n', 'No', 'no']:
-#     el = emission_lines(filepath, float(z))
-# else:
-#     raise Exception("Must be Y or N. Try again.")
-
-# #el = emission_lines('spec-0285-51930-0309.fits', 0.2) #0.06456
-# el_table, figure = el.line_detection() #
-
-# savefig = input("Do you want to save the figure (Y or N)? ")
-
-# if savefig in ['Y', 'y', 'Yes', 'yes']:
-#     plt.savefig("emission_lines_detected.png", bbox_inches ="tight", pad_inches = 0.05, dpi=300)
-
-# savetable = input("Do you want to save the table (Y or N)? ")
-
-# if savetable in ['Y', 'y', 'Yes', 'yes']:
-#     ascii.write(el_table, 'emission_lines_table.dat', overwrite=True)
-
-# print('Here is a table of your emission lines!')
-# print(el_table)
-
-# plt.show()
