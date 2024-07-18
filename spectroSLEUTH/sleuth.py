@@ -7,6 +7,11 @@ from scipy.signal import find_peaks
 from astropy.table import Table
 
 class emission_lines(): 
+    """
+    this better not work
+    Args:
+        temp_val (anger)
+    """
     
     def __init__(self, filepath, z, prominence=20):
         """
