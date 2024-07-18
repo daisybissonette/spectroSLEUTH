@@ -104,24 +104,79 @@ class emission_lines():
         matches_df = pd.DataFrame(matches,columns=['Atomic Wavelength', 'Found Peak', 'Ion Match'])
       
         #plotting code
-        fig = plt.figure()
+        # fig, ax  = plt.subplots(figsize=(15,5))
         
-        plt.plot(self.lam/(1+self.redshift), self.flux)
-        for i, wl in enumerate(np.array(matches_df['Found Peak'])):
-            plt.vlines(wl, 0, np.max(self.flux), color = 'gray', ls = '--')
-        plt.xlabel(r'Wavelength ($\AA$)')
-        plt.ylabel('Flux')
-        plt.title('')
+        # ax.plot(self.lam/(1+self.redshift), self.flux)
+        # for i, wl in enumerate(np.array(matches_df['Found Peak'])):
+        #     ax.vlines(wl, 0, np.max(self.flux), color = 'gray', ls = '--')
+        # ax.set_xlabel(r'Wavelength ($\AA$)')
+        # ax.set_ylabel('Flux')
+        # ax.set_title('')
 
-        labels = np.array(matches_df['Ion Match'])[0]
-        labelx = np.array(matches_df['Atomic Wavelength'])[0]
-        labely = np.array(results_table['flux'])[0]
+        # labels = np.array(matches_df['Ion Match'])
+        # labelx = np.array(matches_df['Atomic Wavelength'])
+        # labely = np.array(results_table['flux'])
         
-        for i, label in enumerate(labels):
-            ax.annotate(labels[i], (labelx[i], labely[i]))
+        # for i, label in enumerate(labels):
+        #     ax.annotate(label, (labelx[i], labely[i]), xytext=(labelx[i], 5))
 
+        #plt.show()
+        # Assuming the x-axis data (wavelength) and y-axis data (flux) are in self.lam and self.flux respectively
+        # matches_df contains 'Found Peak' and 'Ion Match'
+        # results_table contains 'flux'
+
+        # Determine the min and max of the wavelength range
+        min_wl = np.min(self.lam) / (1 + self.redshift)
+        max_wl = np.max(self.lam) / (1 + self.redshift)
+
+        # Calculate the number of subplots needed
+        num_subplots = int(np.ceil((max_wl - min_wl) / 2000))
+
+        fig, axes = plt.subplots(num_subplots, 1, figsize=(15, 5 * num_subplots), sharey=True)
+        if num_subplots == 1:
+            axes = [axes]  # Make sure axes is iterable if there's only one subplot
+
+        for i in range(num_subplots):
+            ax = axes[i]
+            start_wl = min_wl + i * 2000
+            end_wl = min(start_wl + 2000, max_wl)
+
+            # Plot the flux in the current range
+            mask = (self.lam / (1 + self.redshift) >= start_wl) & (self.lam / (1 + self.redshift) < end_wl)
+            ax.plot(self.lam[mask] / (1 + self.redshift), self.flux[mask])
+
+            # Plot the vertical lines for 'Found Peak' and determine the new end_wl
+            found_peaks_in_range = []
+            for wl in np.array(matches_df['Found Peak']):
+                if start_wl <= wl < end_wl:
+                    ax.vlines(wl, 0, np.max(self.flux[mask]), color='gray', ls='--')
+                    found_peaks_in_range.append(wl)
+
+            if found_peaks_in_range:
+                end_wl = min(max(found_peaks_in_range) + 100, max_wl)
+
+            # Annotate the labels with staggered y positions
+            labels = np.array(matches_df['Ion Match'])
+            labelx = np.array(matches_df['Atomic Wavelength'])
+            labely = np.array(results_table['flux'])
+            avgflux = (min(labely)+max(labely))/2
+            staggered_y = np.array([avgflux if j % 2 == 0 else avgflux+(0.2*avgflux) for j in range(len(labels))])
+            for j, label in enumerate(labels):
+                if start_wl <= labelx[j] < end_wl:
+                    ax.annotate(label, (labelx[j], staggered_y[j % len(staggered_y)]), xytext=(labelx[j], staggered_y[j % len(staggered_y)]))
+
+            ax.set_xlim(start_wl, end_wl)
+            ax.set_xlabel(r'Wavelength ($\AA$)')
+            if i == 0:
+                ax.set_ylabel('Flux')
+            ax.set_title(f'Wavelength Range: {int(start_wl)} - {int(end_wl)} $\AA$')
+
+        plt.tight_layout()
         plt.show()
 
-
         return matches_df, fig
+    
+el = emission_lines('/Users/daisybissonette/codeastro/spectroSLEUTH/tests/test_spectrum_1.fits', 0.0646, prominence=20)
+# #el.line_detection()
+el.line_identification()
 
