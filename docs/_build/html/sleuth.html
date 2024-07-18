@@ -45,7 +45,14 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">spectroSLEUTH Functions</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">spectroSLEUTH Functions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#sleuth.emission_lines"><code class="docutils literal notranslate"><span class="pre">emission_lines</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#sleuth.emission_lines.line_detection"><code class="docutils literal notranslate"><span class="pre">emission_lines.line_detection()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sleuth.emission_lines.line_identification"><code class="docutils literal notranslate"><span class="pre">emission_lines.line_identification()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 
         </div>
@@ -73,9 +80,62 @@
            <div itemprop="articleBody">
              
   <div class="section" id="spectrosleuth-functions">
-<span id="spectrosleuth"></span><h1>spectroSLEUTH Functions<a class="headerlink" href="#spectrosleuth-functions" title="Permalink to this heading"></a></h1>
+<span id="sleuth"></span><h1>spectroSLEUTH Functions<a class="headerlink" href="#spectrosleuth-functions" title="Permalink to this heading"></a></h1>
 <p>Functions to find and define emission-lines.</p>
-<span class="target" id="module-sleuth"></span></div>
+<span class="target" id="module-sleuth"></span><dl class="py class">
+<dt class="sig sig-object py" id="sleuth.emission_lines">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sleuth.</span></span><span class="sig-name descname"><span class="pre">emission_lines</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prominence</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sleuth.emission_lines" title="Permalink to this definition"></a></dt>
+<dd><p>Class containing functions to detect and identify emission lines</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filepath</strong> (<em>string</em>) – filepath to the spectrum data (fits format)</p></li>
+<li><p><strong>z</strong> (<em>float</em>) – redshift of the galaxy.</p></li>
+<li><p><strong>prominence</strong> (<em>float</em><em>, </em><em>optional</em>) – required prominence of peaks for emission-line detection threshold. default is 20.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="sleuth.emission_lines.line_detection">
+<span class="sig-name descname"><span class="pre">line_detection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sleuth.emission_lines.line_detection" title="Permalink to this definition"></a></dt>
+<dd><p>Line Detection</p>
+<p>This function will detect peaks by using the scipy find_peak function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>declaration</strong> (<em>variables defined in class</em>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Table containing the observed and emitted wavelengths of detected emission lines.
+fig (figure): Figure showing the spectrum with detected emission-lines indicated by a vertical line.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>results_table (astropy table)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sleuth.emission_lines.line_identification">
+<span class="sig-name descname"><span class="pre">line_identification</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sleuth.emission_lines.line_identification" title="Permalink to this definition"></a></dt>
+<dd><p>Line Identification</p>
+<p>This function take in identified peaks (redshifted back to rest) and compares them to a table of atomic wavelengths to identify ion</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>declaration</strong> (<em>variables defined in class</em>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Table containing the observed and emitted wavelengths of detected emission lines, as well as the best guess for the corresponding ions responsible for the line.
+fig (figure): Figure showing the spectrum with detected emission-lines indicated by a vertical line and labeled ion.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>results_table (astropy table)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 
 
            </div>

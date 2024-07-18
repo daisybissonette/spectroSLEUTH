@@ -1,4 +1,4 @@
-.. _spectroSLEUTH:
+.. _sleuth:
 
 spectroSLEUTH Functions
 =======================
