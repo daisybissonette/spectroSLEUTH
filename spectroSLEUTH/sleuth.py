@@ -8,17 +8,15 @@ from astropy.table import Table
 
 class emission_lines(): 
     """
-    this better not work
+    Class containing functions to detect and identify emission lines
+
     Args:
-        temp_val (anger)
-    """
-    
-    def __init__(self, filepath, z, prominence=20):
-        """
         filepath (string): filepath to the spectrum data (fits format)
         z (float): redshift of the galaxy. 
         prominence (float, optional): required prominence of peaks for emission-line detection threshold. default is 20.
-        """
+    """
+    
+    def __init__(self, filepath, z, prominence=20):
 
         if z < 0:
             raise Exception("Redshift cannot be negative. Try again with a positive value.")
