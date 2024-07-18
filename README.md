@@ -1,7 +1,6 @@
 
-![spectroSLEUTH_purple_logo](https://github.com/user-attachments/assets/2b5e7939-6a6c-4d91-b90d-7fc4cf19fa38)
+![spectroSLEUTH_final_logo](https://github.com/user-attachments/assets/5f85b557-20f4-4f69-953b-53506672cf76)
 
-SpectroSLEUTH: SpectroScopy Line Emission Utility and Tracking Helper
 
 A 2024 CodeAstro Workshop Project (Group #2)
 
