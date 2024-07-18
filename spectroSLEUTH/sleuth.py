@@ -69,6 +69,16 @@ class emission_lines():
         return results_table, fig
 
     def line_identification(self, results_table): 
+        '''
+        This function take in identified peaks (redshifted back to rest) and compares them to a table of atomic wavelengths to identify ion
+
+        Args:
+            variables defined in class declaration
+        
+        Returns:
+            results_table (astropy table): Table containing the observed and emitted wavelengths of detected emission lines.
+            fig (figure): Figure showing the spectrum with detected emission-lines indicated by a vertical line and labeled ion
+        '''
         defined_lines = pd.read_csv('defined_optical_lines.csv')
         defined_wavelength = np.array(defined_lines['wavelength'])
         defined_names = defined_lines['ion']
