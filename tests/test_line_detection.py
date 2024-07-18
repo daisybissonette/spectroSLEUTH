@@ -11,7 +11,6 @@ def test_line_detection():
 
     el = emission_lines('spectroSLEUTH/tests/test_spectrum_1.fits', 0.0646, promience=20)
     el.results_table, el.fig = el.line_detection()
-    print(el.results_table)
     # assert that emission line at OIII is detection 
     assert el.results_table[7] == '[O III]'
 
