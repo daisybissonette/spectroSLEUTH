@@ -70,20 +70,22 @@ class emission_lines():
 
     def line_identification(self): 
         '''
+        Line Identification 
+
         This function take in identified peaks (redshifted back to rest) and compares them to a table of atomic wavelengths to identify ion
 
         Args:
             variables defined in class declaration
         
         Returns:
-            results_table (astropy table): Table containing the observed and emitted wavelengths of detected emission lines.
-            fig (figure): Figure showing the spectrum with detected emission-lines indicated by a vertical line and labeled ion
+            results_table (astropy table): Table containing the observed and emitted wavelengths of detected emission lines, as well as the best guess for the corresponding ions responsible for the line.
+            fig (figure): Figure showing the spectrum with detected emission-lines indicated by a vertical line and labeled ion.
         '''
 
         #calls first function and saves output to use identified peaks in this function
         results_table, fig = self.line_detection()
 
-        defined_lines = pd.read_csv('spectroSLEUTH/spectroSLEUTH/line_data/defined_optical_lines.csv')
+        defined_lines = pd.read_csv('/line_data/defined_optical_lines.csv')
         defined_wavelength = np.array(defined_lines['wavelength'])
         defined_names = defined_lines['ion']
         matches = []
@@ -109,14 +111,13 @@ class emission_lines():
         plt.ylabel('Flux')
         plt.title('')
 
-        # plt.text(np.array(matches_df['Atomic Wavelength'])[0], np.array(results_table['flux'])[0], 
-        #          np.array(matches_df['Ion Match'])[0])
-
-        print(np.array(matches_df['Ion Match'])[0])
-
-        # for i, name in enumerate(np.array(matches_df['Ion Match'])):
-        #     plt.text(np.array(matches_df['Atomic Wavelength'])[i], np.array(results_table['flux'])[i], name)
+        labels = np.array(matches_df['Ion Match'])[0]
+        labelx = np.array(matches_df['Atomic Wavelength'])[0]
+        labely = np.array(results_table['flux'])[0]
         
+        for i, label in enumerate(labels):
+            ax.annotate(labels[i], (labelx[i], labely[i]))
+
         plt.show()
 
 
