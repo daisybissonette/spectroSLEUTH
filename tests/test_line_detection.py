@@ -1,7 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from pytest import approx
-from spectroSLEUTH.src.template import emission_lines
+import spectroSLEUTH
+from spectroSLEUTH.sleuth import emission_lines
 
 def test_line_detection(): 
     """
