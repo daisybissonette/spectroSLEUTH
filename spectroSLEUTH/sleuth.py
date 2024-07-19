@@ -61,11 +61,11 @@ class emission_lines():
         results_table = Table(results)
 
         fig = plt.figure()
-        plt.plot(new_table["emit lam"], new_table["flux"])
-        plt.plot(new_table["emit lam"][peaks], new_table["flux"][peaks], 'x')
+        plt.plot(new_table["emit lam"], new_table["flux"], c='cornflowerblue', linewidth=0.8)
+        plt.plot(new_table["emit lam"][peaks], new_table["flux"][peaks], 'x', c='black')
         plt.xlabel(r'Wavelength ($\AA$)')
         plt.ylabel('Flux')
-        plt.title('')
+        plt.title('Potential emission lines found in spectrum')
 
         #plt.show()
             
@@ -125,7 +125,7 @@ class emission_lines():
 
             # Plot the flux in the current range
             mask = (self.lam / (1 + self.redshift) >= start_wl) & (self.lam / (1 + self.redshift) < end_wl)
-            ax.plot(self.lam[mask] / (1 + self.redshift), self.flux[mask])
+            ax.plot(self.lam[mask] / (1 + self.redshift), self.flux[mask], c='cornflowerblue')
 
             # Plot the vertical lines for 'Found Peak' and determine the new end_wl
             found_peaks_in_range = []
@@ -143,10 +143,17 @@ class emission_lines():
             labely = np.array(results_table['flux'])
             avgflux = (min(labely)+max(labely))/2
             staggered_y = np.array([0.8*avgflux if j % 2 == 0 else 0.8*avgflux+(0.1*avgflux) for j in range(len(labels))])
+
             for j, label in enumerate(labels):
                 if start_wl <= labelx[j] < end_wl:
-                    ax.annotate(label, (labelx[j], staggered_y[j % len(staggered_y)]), xytext=(labelx[j], 
-                    staggered_y[j % len(staggered_y)]))
+                    ax.annotate(
+                        label,
+                        (labelx[j], staggered_y[j % len(staggered_y)]),
+                        xytext=(25, 25),
+                        textcoords='offset points',
+                        bbox=dict(boxstyle='round,pad=0.3', edgecolor='indigo', facecolor='thistle'),
+                        arrowprops=dict(arrowstyle='->', color='indigo')
+                    )
             ax.set_xlim(start_wl, end_wl)
             ax.set_xlabel(r'Wavelength ($\AA$)')
             if i == 0:
