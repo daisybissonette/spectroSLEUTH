@@ -13,6 +13,10 @@ It is currently built for optical spectra (SDSS specifically).
 Start by installing the package and running the following:
 
 ```
+pip install spectroSLEUTH
+```
+
+```
 from spectroSLEUTH import sleuth
 
 el = sleuth.emission_lines('path/test_spectrum.fits', redshift)
