@@ -10,12 +10,12 @@ A 2024 CodeAstro Workshop Project (Group #2)
 This package is designed to detect emission-lines in user input spectra and make a best guess at classifying the nature of each emission-line. 
 It is currently built for optical spectra (SDSS specifically).
 
-Start by installing the package and running the following:
+Start by installing the package with a pip install:
 
 ```
 pip install spectroSLEUTH
 ```
-
+Then run the following in an ipython or jupyter notebook environment:
 ```
 from spectroSLEUTH import sleuth
 
