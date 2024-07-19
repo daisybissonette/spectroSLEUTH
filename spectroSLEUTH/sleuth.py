@@ -101,31 +101,11 @@ class emission_lines():
             
             #if there is a value in this array that is less than a desired tolerance it's probably a match. so its saved
             if min(hold) < 5:
-                matches.append([lam, lam-min(hold), defined_names[i]])
+                matches.append([lam, lam+min(hold), defined_names[i]])
         
         matches_df = pd.DataFrame(matches,columns=['Atomic Wavelength', 'Found Peak', 'Ion Match'])
       
         #plotting code
-        # fig, ax  = plt.subplots(figsize=(15,5))
-        
-        # ax.plot(self.lam/(1+self.redshift), self.flux)
-        # for i, wl in enumerate(np.array(matches_df['Found Peak'])):
-        #     ax.vlines(wl, 0, np.max(self.flux), color = 'gray', ls = '--')
-        # ax.set_xlabel(r'Wavelength ($\AA$)')
-        # ax.set_ylabel('Flux')
-        # ax.set_title('')
-
-        # labels = np.array(matches_df['Ion Match'])
-        # labelx = np.array(matches_df['Atomic Wavelength'])
-        # labely = np.array(results_table['flux'])
-        
-        # for i, label in enumerate(labels):
-        #     ax.annotate(label, (labelx[i], labely[i]), xytext=(labelx[i], 5))
-
-        #plt.show()
-        # Assuming the x-axis data (wavelength) and y-axis data (flux) are in self.lam and self.flux respectively
-        # matches_df contains 'Found Peak' and 'Ion Match'
-        # results_table contains 'flux'
 
         # Determine the min and max of the wavelength range
         min_wl = np.min(self.lam) / (1 + self.redshift)
@@ -162,11 +142,11 @@ class emission_lines():
             labelx = np.array(matches_df['Atomic Wavelength'])
             labely = np.array(results_table['flux'])
             avgflux = (min(labely)+max(labely))/2
-            staggered_y = np.array([avgflux if j % 2 == 0 else avgflux+(0.2*avgflux) for j in range(len(labels))])
+            staggered_y = np.array([0.8*avgflux if j % 2 == 0 else 0.8*avgflux+(0.1*avgflux) for j in range(len(labels))])
             for j, label in enumerate(labels):
                 if start_wl <= labelx[j] < end_wl:
-                    ax.annotate(label, (labelx[j], staggered_y[j % len(staggered_y)]), xytext=(labelx[j], staggered_y[j % len(staggered_y)]))
-
+                    ax.annotate(label, (labelx[j], staggered_y[j % len(staggered_y)]), xytext=(labelx[j], 
+                    staggered_y[j % len(staggered_y)]))
             ax.set_xlim(start_wl, end_wl)
             ax.set_xlabel(r'Wavelength ($\AA$)')
             if i == 0:
