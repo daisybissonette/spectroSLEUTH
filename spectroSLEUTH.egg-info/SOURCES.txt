@@ -1,0 +1,11 @@
+LICENSE
+README.md
+pyproject.toml
+spectroSLEUTH/__init__.py
+spectroSLEUTH/sleuth.py
+spectroSLEUTH.egg-info/PKG-INFO
+spectroSLEUTH.egg-info/SOURCES.txt
+spectroSLEUTH.egg-info/dependency_links.txt
+spectroSLEUTH.egg-info/requires.txt
+spectroSLEUTH.egg-info/top_level.txt
+tests/test_line_detection.py
