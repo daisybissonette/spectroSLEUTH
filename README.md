@@ -25,11 +25,13 @@ Example:
 ```
 el = sleuth.emission_lines('path/test_spectrum.fits', redshift, prominence = value)
 ```
-Additional options include being able to save the output table and figure to your machine. These are set to False by default.
+It is possible to save the output figures and tables by using the code below:
+```
+plt.savefig('figure.png', bbox_inches ="tight", pad_inches = 0.05, dpi=300)
+??
+```
 
-```
-el = sleuth.emission_lines('path/test_spectrum.fits', redshift, prominence = value, savefig = True, savetable = True)
-```
+The optical line list was obtained from http://astronomy.nmsu.edu/drewski/tableofemissionlines.html.
 
 Contributors: Daisy Bisonette, Giulia Cinquegrana, Catalina Zamora, Léa Feuillet 
 
