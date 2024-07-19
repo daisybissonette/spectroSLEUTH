@@ -22,17 +22,17 @@ results_table_identification, fig_identification = el.line_identification()
 
 Additional features: \
 \
--The threshold for emission line detection can be adjusted via `prominence`. This is based on the scipy.find_peaks function, see their documentation for further detail: [scipy.find_peaks](https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.find_peaks.html). The default value for `prominence` is set to 23; lower values will find more peaks, greater values will seek only the most pronounced emission-lines.
+- The threshold for emission line detection can be adjusted via `prominence`. This is based on the scipy.find_peaks function, see their documentation for further detail: [scipy.find_peaks](https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.find_peaks.html). The default value for `prominence` is set to 23; lower values will find more peaks, greater values will seek only the most pronounced emission-lines.
 
 Example:
 ```
 el = sleuth.emission_lines('path/test_spectrum.fits', redshift, prominence = value)
 ```
--Output figures and tables can be saved by adding the following line of code to your script:
+- Output figures and tables can be saved by adding the following line of code to your script:
 
 ```
 plt.savefig('figure.png', bbox_inches ="tight", pad_inches = 0.05, dpi=300)
-??
+ascii.write(results_table, 'results.dat', overwrite=True)
 ```
 
 The optical line list was obtained from http://astronomy.nmsu.edu/drewski/tableofemissionlines.html.
