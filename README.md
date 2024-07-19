@@ -27,7 +27,7 @@ Example:
 ```
 el = sleuth.emission_lines('path/test_spectrum.fits', redshift, prominence = value)
 ```
-- Output figures and tables can be saved by adding the following line of code to your script:
+- Output figures and tables can be saved by adding the following line of code to your script:  
 
 ```
 plt.savefig('figure.png', bbox_inches ="tight", pad_inches = 0.05, dpi=300)
