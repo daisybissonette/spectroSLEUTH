@@ -20,8 +20,9 @@ results_table_detection, fig_detection = el.line_detection()
 results_table_identification, fig_identification = el.line_identification()
 ```
 
-Additional features:
--The threshold for emission line detection can be adjusted via 'prominence'. This is based on the scipy.find_peaks function, see their documentation for further detail: [scipy.find_peaks](https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.find_peaks.html). The default value for prominence is set to 23; lower values will find more peaks, greater values will seek only the most pronounced emission-lines.
+Additional features: \
+\
+-The threshold for emission line detection can be adjusted via `prominence`. This is based on the scipy.find_peaks function, see their documentation for further detail: [scipy.find_peaks](https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.find_peaks.html). The default value for `prominence` is set to 23; lower values will find more peaks, greater values will seek only the most pronounced emission-lines.
 
 Example:
 ```
